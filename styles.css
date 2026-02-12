@@ -1,0 +1,389 @@
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: "Roboto M", monospace;
+    font-size: 11px;
+    overflow-x: hidden;
+}
+
+span {
+    font-weight: 800;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #161616;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #303030;
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+#game {
+    display: flex;
+    padding: 4px;
+    flex-wrap: wrap;
+}
+
+#finish-window {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100000;
+    transition: background 2s;
+    font-size: 18px;
+    gap: 24px;
+}
+
+#finish-window.shown {
+    display: flex;
+}
+
+#restart-button {
+    width: 300px;
+    text-align: center;
+    border: 1px solid white;
+    padding: 16px;
+    background: none;
+    transition: 0.2s;
+}
+
+#restart-button:hover {
+    background-color: #333;
+}
+
+#menu-bar {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    font-size: 13px;
+    background-color: #111111;
+    transform: translateX(248px);
+    overflow-x: hidden;
+    border-left: 12px solid #666;
+    width: 244px;
+    transition: 0.2s;
+    z-index: 10000;
+}
+
+#menu-bar:hover {
+    transform: translateX(0);
+}
+
+.menu-row {
+    display: flex;
+}
+
+.menu-item {
+    border: 2px solid #999;
+    color: #ccc;
+    background-color: black;
+    margin: 4px;
+    padding: 4px;
+    transition: 0.1s;
+}
+
+.menu-item:hover {
+    background-color: #222;
+}
+
+.breaker {
+    transition: 0.2s;
+}
+
+.breaker-activated {
+    width: 100%;
+    margin: 4px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    background-color: #222;
+    height: 2px;
+}
+
+.box {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    padding: 8px;
+    border: 2px solid #444;
+    margin: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.box-id {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    color: #999;
+    mix-blend-mode: difference;
+}
+
+.prestige {
+    color: white;
+    transition: 0.1s;
+    border-color: #444;
+    background-color: #111;
+}
+
+.prestige-name {
+    margin-bottom: auto;
+}
+
+.prestige-gain {
+    margin-top: auto;
+}
+
+.can-prestige {
+    background-color: #ccc;
+}
+
+.can-prestige:hover {
+    background-color: white;
+}
+
+.currency {
+    background-color: #222;
+    border: 2px solid #222;
+    font-size: 12px;
+    position: relative;
+}
+
+.buy-max {
+    font-size: 10px;
+    position: absolute;
+    bottom: 8px;
+    width: 80px;
+    padding: 4px;
+    background-color: #191919;
+    border: 1px solid white;
+    transition: 0.1s;
+}
+
+#aura-buy-max {
+    border-color: #ff9853;
+}
+
+.buy-max:hover {
+    background-color: #333;
+}
+
+.currency-value {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.upgrade {
+    transition: 0.1s;
+    pointer-events: none;
+}
+
+.can-buy {
+    border-color: white;
+    pointer-events: all;
+}
+
+.upgrade-effect {
+    margin-top: 3px;
+}
+
+.upgrade-level {
+    margin-bottom: auto;
+}
+
+.upgrade-cost {
+    margin-top: auto;
+}
+
+.upgrade.can-buy:hover {
+    background-color: #222;
+}
+
+.alpha-square {
+    background-color: #00dde9;
+    color: rgb(32, 32, 32)
+}
+
+.aura-box {
+    color: #ff9853;
+}
+
+.currency.aura-box {
+    background-color: #241e1a;
+    border-color: #241e1a;
+}
+
+.prestige.aura-box {
+    color: #ff9853;
+    animation: auraAnimation 2s infinite;
+}
+
+.aura-box.can-buy {
+    border-color: #ff9853;
+}
+
+.aura-box.can-prestige {
+    background-color: #ff9853;
+    border-color: black;
+    color: black;
+    box-shadow: 0 0 20px #ff9853;
+    z-index: 100;
+    animation: none;
+}
+
+.aura-box.can-prestige:hover {
+    background-color: white;
+}
+
+.exponentia-box {
+    color: #8d6dff;
+}
+
+.currency.exponentia-box {
+    background-color: #1c1a24;
+    border-color: #1c1a24;
+}
+
+.prestige.exponentia-box {
+    color: #8d6dff;
+}
+
+.exponentia-box.can-buy {
+    border-color: #8d6dff;
+}
+
+.exponentia-box.can-prestige {
+    background-color: #8d6dff;
+    border-color: black;
+    color: black;
+    box-shadow: 0 0 20px #8d6dff;
+    z-index: 100;
+}
+
+.exponentia-box.can-prestige:hover {
+    background-color: white;
+}
+
+.consonance-box {
+    color: #53ffe8;
+}
+
+.currency.consonance-box {
+    background-color: #0e1615;
+    border-color: #0e1615;
+}
+
+.prestige.consonance-box {
+    color: #53ffe8;
+    animation: consonanceAnimation 2s infinite;
+}
+
+.consonance-box.can-buy {
+    border-color: #53ffe8;
+}
+
+.consonance-box.can-prestige {
+    background-color: #53ffe8;
+    border-color: black;
+    color: black;
+    box-shadow: 0 0 20px #53ffe8;
+    z-index: 100;
+    animation: none;
+}
+
+.consonance-box.can-prestige:hover {
+    background-color: white;
+}
+
+.capped {
+    color: rgb(255, 78, 78);
+}
+
+.upgrade.maxed {
+    pointer-events: none;
+    background-color: #111;
+    border-color: #444;
+}
+
+.hidden {
+    display: none;
+}
+
+.invisible {
+    opacity: 0%;
+}
+
+@keyframes auraAnimation {
+    0% {
+        box-shadow: inset 0 0 20px #25180e;
+    }
+    50% {
+        box-shadow: inset 0 0 40px #382515;
+    }
+    100% {
+        box-shadow: inset 0 0 20px #25180e;
+    }
+}
+
+@keyframes consonanceAnimation {
+    0% {
+        box-shadow: inset 0 0 20px #0e2523;
+    }
+    50% {
+        box-shadow: inset 0 0 40px #173f3f;
+    }
+    100% {
+        box-shadow: inset 0 0 20px #0e2523;
+    }
+}
+
+#reset-save {
+    border-color: red;
+    color: red;
+}
+
+@font-face {
+    font-family: "Roboto M";
+    src: url(fonts/RobotoMono-VariableFont_wght.ttf);
+}
