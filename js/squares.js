@@ -147,7 +147,7 @@ let squares = [{
             this.maxLevel = this.maxLevel.add(1);
             $( "#upgrade-max-level-6" ).text(this.maxLevel.toString());
             if (this.level.equals(1)) {
-                
+                alpha1Cutscene();
             }
         }
     },
