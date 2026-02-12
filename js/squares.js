@@ -146,9 +146,59 @@ let squares = [{
         onBuy() {
             this.maxLevel = this.maxLevel.add(1);
             $( "#upgrade-max-level-6" ).text(this.maxLevel.toString());
-            if (this.level.equals(1)) {
-                alpha1Cutscene();
+            if (this.level.equals(1) && player.state <= player.alphaPart1) {
+                setTimeout(function() {
+                    alpha1Cutscene();
+                }, 100)
             }
         }
+    },
+    {
+        type: "upgrade",
+        level: new Decimal(0),
+        maxLevel: new Decimal(1),
+        effectText: "Multiply alpha generation by |x.",
+        cost: new Decimal(1e60),
+        currency: "alpha",
+        costMult: new Decimal(1.75),
+        costExponent: new Decimal(0),
+        costUltraExponent: new Decimal(0),
+        effect() {
+            let base = this.effectDisplay()
+            return base.pow(this.level)
+        },
+        effectDisplay() {
+            let base = new Decimal(1.05)
+            return base
+        },
+        unlocked() {
+            return player.state >= gameState.alphaPart1;
+        },
+        onBuy() {
+            this.maxLevel = this.maxLevel.add(1);
+            $( "#upgrade-max-level-7" ).text(this.maxLevel.toString());
+        }
+    },
+    {
+        type: "upgrade",
+        level: new Decimal(0),
+        maxLevel: new Decimal(15),
+        effectText: "Make upgrades #6 and #7<sub>WHY😭</sub> auto purchase every second, and each next purchase divides the time per purchase by |.", //OH MY GOD THIS WAS NOT INTENDED AT ALL GOD DAMN IT
+        cost: new Decimal(1e100),
+        currency: "alpha",
+        costMult: new Decimal(1e25),
+        costExponent: new Decimal(1),
+        costUltraExponent: new Decimal(0),
+        effect() {
+            let base = this.effectDisplay()
+            return ((this.level.equals(0)) ? (new Decimal(0)) : (base.pow(this.level.sub(1))))
+        },
+        effectDisplay() {
+            let base = new Decimal(2)
+            return base
+        },
+        unlocked() {
+            return player.state >= gameState.alphaPart2;
+        },
     },
 ]

@@ -3,6 +3,8 @@ let upgradeSquares = []
 let lastTime = 0;
 let fps = 0;
 
+let countr = new Decimal(0);
+
 let inCutscene = false;
 
 function loop(currentTime) {
@@ -44,12 +46,23 @@ function loop(currentTime) {
     {
         $( "#square-5" ).addClass("hidden");
     }
+    if (squares[8].level.gte(1)) {
+        countr = countr.add(deltaTime);
+        if (countr.gte(new Decimal(1).div(squares[8].effect()))) {
+            buyUpgrade(4);
+            buyUpgrade(5);
+            countr = new Decimal(0);
+        }
+    }
     // story
     if (player.state < gameState.fluxPart2 && player.currencies.flux.gte(1e30) && !inCutscene) {
         flux1Cutscene();
     }
     if (player.state < gameState.alphaPart1 && player.currencies.flux.gte(1e100) && !inCutscene) {
         flux2Cutscene();
+    }
+    if (player.state < gameState.alphaPart2 && player.currencies.alpha.gte(1e100) && !inCutscene) {
+        alpha2Cutscene();
     }
 }
 
@@ -66,11 +79,17 @@ function canBuy(object) {
 
 function buyUpgrade(e) {
     let square = squares[upgradeSquares[e].data("square-id")];
-    if (player.currencies[square.currency].gte(square.cost)) {
+    if (player.currencies[square.currency].gte(square.cost) && square.level.lt(square.maxLevel)) {
         player.currencies[square.currency] = player.currencies[square.currency].sub(square.cost);
         square.level = square.level.add(1);
         player.upgrades[e] = player.upgrades[e].add(1);
-        square.cost = square.cost.mul(square.costMult).mul(square.level.pow(square.costExponent)).mul((square.level.lte(10)) ? (1) : (square.level.pow(square.level.pow(square.costUltraExponent))));
+        square.cost = square.cost.mul(square.costMult)
+            .mul(square.level.pow(square.costExponent))
+            .mul(
+                (square.level.lte(10)) ? 
+                    (1) : 
+                    (square.costUltraExponent.equals(0) ? 1 : square.level.pow(square.level.pow(square.costUltraExponent)))
+            );
         $( "#upgrade-level-" + upgradeSquares[e].data("square-id")).text(square.level.toString());
         $( "#upgrade-effect-" + upgradeSquares[e].data("square-id")).text(format(square.effect()));
         $( "#upgrade-cost-" + upgradeSquares[e].data("square-id")).text(format(square.cost));
@@ -92,9 +111,13 @@ function getFluxGain(deltaTime) {
 }
 
 function getAlphaGain(deltaTime) {
-    let gain = new Decimal(1);
+    let gain = new Decimal(6);
     gain = gain.mul(squares[6].effect());
+    gain = gain.mul(squares[7].effect());
     gain = gain.mul(deltaTime);
+    if (player.devSpeed) {
+        gain = gain.mul(player.devSpeed)
+    }
     return gain;
 }
 

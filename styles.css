@@ -249,6 +249,14 @@ a {
     color: #ff9853;
 }
 
+.upgrade.alpha {
+    background-color: #00dde932;
+}
+
+.upgrade.alpha:hover {
+    background-color: #00dde962;
+}
+
 .currency.aura-box {
     background-color: #241e1a;
     border-color: #241e1a;
@@ -386,4 +394,13 @@ a {
 @font-face {
     font-family: "Roboto M";
     src: url(fonts/RobotoMono-VariableFont_wght.ttf);
+}
+
+sub {
+    font-size: 6px;
+}
+
+#info {
+    position: fixed;
+    right: 0;
 }

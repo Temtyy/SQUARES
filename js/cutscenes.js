@@ -67,5 +67,10 @@ function alpha1Cutscene() {
     alert("...");
     alert("I screwed up the max level code.");
     alert("I'll try fixing that later. For now, you have this.");
-    alert("This is the end for now.");
+}
+
+function alpha2Cutscene() {
+    alert("I'm guessing this is getting boring.");
+    alert("Here, I'll add something I've been working on.");
+    player.state = gameState.alphaPart2;
 }

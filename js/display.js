@@ -32,6 +32,9 @@ $(document).ready(function() {
             }
         } else if (squares[i].type == "upgrade") {
             upgradeSquareSettings["class"] = "box upgrade"
+            if (squares[i].currencyName != "flux") {
+                upgradeSquareSettings["class"] += " " + squares[i].currency
+            }
         }
         let upgrade = $("<div>", upgradeSquareSettings)
         upgrade.append($("<div>", { class: "box-id" }).text("#" + i))

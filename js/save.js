@@ -1,7 +1,8 @@
 const gameState = createEnum([
     "fluxPart1", //beginning - 1e30 flux
     "fluxPart2", //1e30 flux - 1e100 flux/alpha unlock
-    "alphaPart1", //alpha unlock - 1e2000 alpha
+    "alphaPart1", //alpha unlock - 1e100 alpha/alpha autobuyer unlock
+    "alphaPart2", //1e100 alpha - 1e2000 alpha
 ])
 
 let player = {
@@ -12,6 +13,8 @@ let player = {
         "alpha": new Decimal(0),
     },
     upgrades: [
+        new Decimal(0),
+        new Decimal(0),
         new Decimal(0),
         new Decimal(0),
         new Decimal(0),
