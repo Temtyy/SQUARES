@@ -1,4 +1,18 @@
+let mainGameOpen = false;
+
 $(document).ready(function() {
+    $("#info").on("click", function() {
+        if (mainGameOpen) {
+            $("#game").addClass("hidden");
+            $("#changelog").removeClass("hidden");
+        }
+        else {
+            $("#game").removeClass("hidden");
+            $("#changelog").addClass("hidden");
+        }
+        mainGameOpen = !mainGameOpen;
+    });
+    $("#info").click();
     /*
     for (let i = 0; i < squares.length; i++) {
         let upgrade = document.createElement("div")
