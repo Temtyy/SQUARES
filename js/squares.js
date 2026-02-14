@@ -98,7 +98,7 @@ let squares = [{
             return base.pow(this.level)
         },
         effectDisplay() {
-            let base = new Decimal(1.05)
+            let base = new Decimal(1.02)
             return base
         },
         onBuy() {
@@ -129,7 +129,7 @@ let squares = [{
         effectText: "Multiply alpha generation by |x.",
         cost: new Decimal(1),
         currency: "alpha",
-        costMult: new Decimal(6.05),
+        costMult: new Decimal(6.25),
         costExponent: new Decimal(0),
         costUltraExponent: new Decimal(0),
         effect() {
@@ -146,10 +146,10 @@ let squares = [{
         onBuy() {
             this.maxLevel = this.maxLevel.add(1);
             $( "#upgrade-max-level-6" ).text(this.maxLevel.toString());
-            if (this.level.equals(1) && player.state <= player.alphaPart1) {
+            if (this.level.equals(1) && player.state == gameState.alphaPart1) {
                 setTimeout(function() {
                     alpha1Cutscene();
-                }, 100)
+                }, 300)
             }
         }
     },
@@ -160,7 +160,7 @@ let squares = [{
         effectText: "Multiply alpha generation by |x.",
         cost: new Decimal(1e60),
         currency: "alpha",
-        costMult: new Decimal(1.75),
+        costMult: new Decimal(2),
         costExponent: new Decimal(0),
         costUltraExponent: new Decimal(0),
         effect() {
@@ -194,11 +194,63 @@ let squares = [{
             return ((this.level.equals(0)) ? (new Decimal(0)) : (base.pow(this.level.sub(1))))
         },
         effectDisplay() {
-            let base = new Decimal(2)
+            let base = new Decimal(1.35)
             return base
         },
         unlocked() {
             return player.state >= gameState.alphaPart2;
+        },
+    },
+    {
+        type: "upgrade",
+        level: new Decimal(0),
+        maxLevel: new Decimal(10),
+        effectText: "Increase bulk buy of upgrades #6 and #7 by |.", //OH MY GOD THIS WAS NOT INTENDED AT ALL GOD DAMN IT
+        cost: new Decimal("1e500"),
+        currency: "alpha",
+        costMult: new Decimal("1e1000"),
+        costExponent: new Decimal(1000),
+        costUltraExponent: new Decimal(0),
+        effect() {
+            let base = this.effectDisplay();
+            return base.mul(this.level);
+        },
+        effectDisplay() {
+            let base = new Decimal(1);
+            base = base.mul(squares[10].effect())
+            return base;
+        },
+        unlocked() {
+            return squares[8].level.equals(squares[8].maxLevel);
+        },
+    },
+    {
+        type: "upgrade",
+        level: new Decimal(0),
+        maxLevel: new Decimal(10),
+        effectText: "Multiply #9's base by |.", //OH MY GOD THIS WAS NOT INTENDED AT ALL GOD DAMN IT
+        cost: new Decimal("1e25000"),
+        currency: "alpha",
+        costMult: new Decimal("1e25000"),
+        costExponent: new Decimal(1e4),
+        costUltraExponent: new Decimal(0),
+        effect() {
+            let base = this.effectDisplay();
+            return base.pow(this.level);
+        },
+        effectDisplay() {
+            let base = new Decimal(2);
+            return base;
+        },
+        unlocked() {
+            return squares[9].level.equals(squares[9].maxLevel);
+        },
+        onBuy() {
+            $( "#upgrade-base-9" ).text(format(squares[9].effectDisplay()))
+            $( "#upgrade-effect-9" ).text(format(squares[9].effect()))
+            if (this.level.equals(this.maxLevel) && player.state <= gameState.alphaPart2) {
+                alpha3Cutscene();
+            }
         },
     },
 ]

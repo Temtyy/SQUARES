@@ -49,8 +49,10 @@ function loop(currentTime) {
     if (squares[8].level.gte(1)) {
         countr = countr.add(deltaTime);
         if (countr.gte(new Decimal(1).div(squares[8].effect()))) {
-            buyUpgrade(4);
-            buyUpgrade(5);
+            for (let i = new Decimal(0); i.lte(squares[9].effect().add(1)); i = i.add(1)) {
+                buyUpgrade(4);
+                buyUpgrade(5);
+            }
             countr = new Decimal(0);
         }
     }
@@ -111,7 +113,7 @@ function getFluxGain(deltaTime) {
 }
 
 function getAlphaGain(deltaTime) {
-    let gain = new Decimal(6);
+    let gain = new Decimal(1);
     gain = gain.mul(squares[6].effect());
     gain = gain.mul(squares[7].effect());
     gain = gain.mul(deltaTime);

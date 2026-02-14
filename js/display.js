@@ -13,6 +13,10 @@ $(document).ready(function() {
         mainGameOpen = !mainGameOpen;
     });
     $("#info").click();
+
+    $("#closeDialogBtn").on("click", function() {
+        $("#dialogBox")[0].close();
+    });
     /*
     for (let i = 0; i < squares.length; i++) {
         let upgrade = document.createElement("div")

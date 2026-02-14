@@ -51,6 +51,7 @@ a {
 #game {
     display: flex;
     padding: 4px;
+    padding-top: 12px;
     flex-wrap: wrap;
 }
 
@@ -399,10 +400,16 @@ sub {
 #info {
     position: fixed;
     right: 0;
+    z-index: 100;
 }
 
 .hidden {
     display: none !important;
+}
+
+#fpsCounter {
+    position: fixed;
+    z-index: 10;
 }
 
 #changelog {
@@ -453,4 +460,52 @@ h1 {
 .spoiler:hover {
     color: white;
     background-color: black;
+}
+
+#dialogBox {
+    position: fixed;
+    width: 30%;
+    left: 35%;
+    height: 20%;
+    top: 40%;
+    color: white;
+    background-color: black;
+    overflow-y: hidden;
+}
+
+#characterEmotion {
+    position: relative;
+    top: 5%;
+    left: 2.5%;
+    width: 30%;
+    height: 90%;
+}
+
+#actor {
+    position: relative;
+    top: -90%;
+    left: 35%;
+    font-size: 20px;
+    font-weight: normal;
+    width: 60%;
+}
+
+#content {
+    position: relative;
+    top: -90%;
+    left: 35%;
+    font-size: 12px;
+    font-weight: normal;
+    width: 60%;
+    height: 70%;
+}
+
+#closeDialogBtn {
+    position: relative;
+    top: -90%;
+    left: 90%;
+    width: 7.5%;
+    border-radius: 0;
+    background-color: rgb(0, 0, 0);
+    color: white;
 }
